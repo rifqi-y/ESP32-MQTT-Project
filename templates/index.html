@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Dashboard Sensor UTS</title>
+  <link rel="stylesheet" href="/static/styles.css" />
+</head>
+<body>
+  <h2>Ringkasan Sensor</h2>
+  <div class="cards">
+    <div class="card"><span>Suhu Max</span><strong id="suhumax">-</strong></div>
+    <div class="card"><span>Suhu Min</span><strong id="suhumin">-</strong></div>
+    <div class="card"><span>Suhu Rata</span><strong id="suhurata">-</strong></div>
+  </div>
+
+  <h3>JSON Summary</h3>
+  <pre id="jsonBox">{}</pre>
+
+  <h3>Data Terbaru</h3>
+  <table id="tableData">
+    <thead>
+      <tr><th>ID</th><th>Suhu</th><th>Humidity</th><th>Lux</th><th>Timestamp</th></tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <h3>Kontrol LED</h3>
+  <div class="buttons">
+    <button onclick="kirimLed('on')">LED ON</button>
+    <button onclick="kirimLed('off')">LED OFF</button>
+  </div>
+
+  <script>
+    async function muatRingkasan(){
+      const r = await fetch('/api/summary');
+      const d = await r.json();
+      document.getElementById('jsonBox').textContent = JSON.stringify(d, null, 2);
+      document.getElementById('suhumax').textContent = d.suhumax ?? '-';
+      document.getElementById('suhumin').textContent = d.suhumin ?? '-';
+      document.getElementById('suhurata').textContent = d.suhurata ?? '-';
+    }
+    async function muatTabel(){
+      const r = await fetch('/api/sensors?limit=20');
+      const rows = await r.json();
+      const tbody = document.querySelector('#tableData tbody');
+      tbody.innerHTML = '';
+      rows.forEach(function(item){
+        const tr = document.createElement('tr');
+        tr.innerHTML = '<td>'+item.id+'</td><td>'+item.suhu+'</td><td>'+item.humidity+'</td><td>'+item.lux+'</td><td>'+item.timestamp+'</td>';
+        tbody.appendChild(tr);
+      });
+    }
+    async function kirimLed(state){
+      const r = await fetch('/api/led', {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({state:state})});
+      if(!r.ok){ alert('Gagal mengirim LED'); }
+    }
+    muatRingkasan();
+    muatTabel();
+    setInterval(muatRingkasan, 5000);
+    setInterval(muatTabel, 5000);
+  </script>
+</body>
+</html>
