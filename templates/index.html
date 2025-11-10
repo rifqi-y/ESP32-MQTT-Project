@@ -7,35 +7,38 @@
   <link rel="stylesheet" href="/static/styles.css" />
 </head>
 <body>
-  <h2>Ringkasan Sensor</h2>
-  <div class="cards">
-    <div class="card"><span>Suhu Max</span><strong id="suhumax">-</strong></div>
-    <div class="card"><span>Suhu Min</span><strong id="suhumin">-</strong></div>
-    <div class="card"><span>Suhu Rata</span><strong id="suhurata">-</strong></div>
-  </div>
+  <div class="container">
+    <h2>📊 Ringkasan Sensor</h2>
+    <div class="cards">
+      <div class="card"><span>Suhu Max</span><strong id="suhumax">-</strong></div>
+      <div class="card"><span>Suhu Min</span><strong id="suhumin">-</strong></div>
+      <div class="card"><span>Suhu Rata</span><strong id="suhurata">-</strong></div>
+    </div>
 
-  <h3>JSON Summary</h3>
-  <pre id="jsonBox">{}</pre>
+    <h3>📝 JSON Summary</h3>
+    <div class="buttons">
+        <button onclick="window.open('/json-summary', '_blank')">Tampilkan JSON Summary</button>
+    </div>
 
-  <h3>Data Terbaru</h3>
-  <table id="tableData">
-    <thead>
-      <tr><th>ID</th><th>Suhu</th><th>Humidity</th><th>Lux</th><th>Timestamp</th></tr>
-    </thead>
-    <tbody></tbody>
-  </table>
+    <h3>📋 Data Terbaru</h3>
+    <table id="tableData">
+      <thead>
+        <tr><th>ID</th><th>Suhu</th><th>Humidity</th><th>Lux</th><th>Timestamp</th></tr>
+      </thead>
+      <tbody></tbody>
+    </table>
 
-  <h3>Kontrol LED</h3>
-  <div class="buttons">
-    <button onclick="kirimLed('on')">LED ON</button>
-    <button onclick="kirimLed('off')">LED OFF</button>
+    <h3>💡 Kontrol LED</h3>
+    <div class="buttons">
+      <button onclick="kirimLed('on')">💡 LED ON</button>
+      <button onclick="kirimLed('off')">🌑 LED OFF</button>
+    </div>
   </div>
 
   <script>
     async function muatRingkasan(){
       const r = await fetch('/api/summary');
       const d = await r.json();
-      document.getElementById('jsonBox').textContent = JSON.stringify(d, null, 2);
       document.getElementById('suhumax').textContent = d.suhumax ?? '-';
       document.getElementById('suhumin').textContent = d.suhumin ?? '-';
       document.getElementById('suhurata').textContent = d.suhurata ?? '-';

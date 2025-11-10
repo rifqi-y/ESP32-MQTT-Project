@@ -7,13 +7,18 @@ app = Flask(__name__)
 
 @app.route("/")
 def home():
-                return render_template("index.html")
+        return render_template("index.html")
 
 
 @app.route("/api/summary")
 def api_summary():
         data = get_summary()
         return jsonify(data)
+
+
+@app.route("/json-summary")
+def json_summary_page():
+        return render_template("json_summary.html")
 
 
 @app.route("/api/sensors/latest")

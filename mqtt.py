@@ -6,7 +6,7 @@ from sql import insert_data
 broker = "broker.hivemq.com"
 port = 1883
 DATA_TOPIC = "152023003/pemiot/data"
-CMD_TOPIC = "152023003/pemiot/cmd/led"  # untuk publish perintah ke device
+CMD_TOPIC = "152023003/pemiot/cmd/state/led"  # untuk publish perintah ke device
 
 
 def on_connect(client, userdata, flags, rc):

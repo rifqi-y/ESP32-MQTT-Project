@@ -7,9 +7,9 @@
 #define LDR_PIN 34
 #define DHT_PIN 15
 #define LED_PIN 2
-// Set to true if your LED is active-low (LOW = ON). On many ESP32 boards, the on-board LED on GPIO2 is active-high.
-// Keeping default as active-low to preserve previous behavior in this project.
-static const bool LED_ACTIVE_LOW = true;
+// Set to false if your LED is active-high (HIGH = ON). On many ESP32 boards, the on-board LED on GPIO2 is active-high.
+// Change this to match your hardware setup.
+static const bool LED_ACTIVE_LOW = false;
 
 RTC_DS1307 rtc;
 DHTesp dht;
@@ -20,7 +20,7 @@ const char *mqtt_server = "broker.hivemq.com";
 
 // MQTT topics
 static const char *MQTT_DATA_TOPIC = "152023003/pemiot/data";           // publishes sensor data (already used)
-static const char *MQTT_LED_CMD_TOPIC = "152023003/pemiot/cmd/led";     // subscribe here for LED commands
+static const char *MQTT_LED_CMD_TOPIC = "152023003/pemiot/cmd/state/led";     // subscribe here for LED commands
 static const char *MQTT_LED_STATE_TOPIC = "152023003/pemiot/state/led"; // publishes LED state after changes
 
 WiFiClient espClient;

@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>JSON Summary - Dashboard Sensor UTS</title>
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body {
+      font-family: 'Courier New', monospace;
+      background: #1e1e1e;
+      color: #00ff00;
+      padding: 20px;
+      min-height: 100vh;
+    }
+    .header {
+      background: #2d2d2d;
+      padding: 20px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+    }
+    .header h1 {
+      color: #00ff00;
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+    .header a {
+      color: #0af;
+      text-decoration: none;
+      font-size: 14px;
+    }
+    .header a:hover {
+      text-decoration: underline;
+    }
+    pre {
+      background: #0d0d0d;
+      padding: 20px;
+      border-radius: 8px;
+      overflow: auto;
+      font-size: 14px;
+      line-height: 1.6;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.6);
+      white-space: pre-wrap;
+      word-wrap: break-word;
+    }
+    .loading {
+      text-align: center;
+      padding: 40px;
+      font-size: 18px;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>📊 JSON Summary</h1>
+    <a href="/">← Kembali ke Dashboard</a>
+  </div>
+  <div id="content" class="loading">Loading...</div>
+
+  <script>
+    async function loadJSON(){
+      try {
+        const r = await fetch('/api/summary');
+        const data = await r.json();
+        document.getElementById('content').innerHTML = '<pre>' + JSON.stringify(data, null, 2) + '</pre>';
+      } catch(e) {
+        document.getElementById('content').innerHTML = '<pre>Error: ' + e.message + '</pre>';
+      }
+    }
+    loadJSON();
+  </script>
+</body>
+</html>
