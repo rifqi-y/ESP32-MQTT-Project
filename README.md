@@ -2,8 +2,6 @@
 
 Repositori ini berisi contoh sistem IoT end‑to‑end sederhana: sebuah board ESP32 mengukur beberapa sensor (suhu/kelembapan, intensitas cahaya, waktu RTC), mengirimkan data secara periodik melalui MQTT ke server aplikasi Python. Server melakukan ingest data, menyimpannya ke basis data relasional, lalu menampilkan dashboard web dengan ringkasan, daftar pembacaan terbaru, serta kontrol LED dua arah (publish perintah dari web, perangkat menerima dan merespon).
 
-> Fokus README: bagaimana membangun ulang sistem serupa. Detail sensitif seperti nama topik MQTT, nama database, table, dsb sengaja digeneralisasi menjadi placeholder agar Anda menyesuaikannya sendiri.
-
 ---
 
 ### 1. Arsitektur Sistem (Ringkas)
