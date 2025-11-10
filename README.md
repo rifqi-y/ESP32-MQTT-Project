@@ -178,10 +178,6 @@ Server ingest akan memetakan dan menyimpan ke kolom numerik + timestamp. Jika ti
 - Gunakan TLS untuk broker MQTT jika tersedia.
 - Validasi payload masuk (tipe & range nilai) sebelum insert.
 
-### 13. Lisensi
-
-Tambahkan lisensi sesuai kebutuhan (misal MIT) di masa mendatang.
-
 ---
 
 ## Ringkas
