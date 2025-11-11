@@ -1,9 +1,12 @@
+import os
+
 from flask import Flask, jsonify, render_template, request
 from sql import get_lastdata, get_summary, get_conn
 from mqtt import publish_led_command
+from flask_cors import CORS 
 
 app = Flask(__name__)
-
+CORS(app)
 
 @app.route("/")
 def home():
@@ -82,4 +85,7 @@ def api_led():
 
 
 if __name__ == "__main__":
-        app.run(debug=True)
+    host = os.getenv("FLASK_HOST", "0.0.0.0")
+    port = int(os.getenv("FLASK_PORT", "5000"))
+    debug = os.getenv("FLASK_DEBUG", "0") == "1"
+    app.run(host=host, port=port, debug=debug)

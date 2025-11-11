@@ -7,8 +7,7 @@
 #define LDR_PIN 34
 #define DHT_PIN 15
 #define LED_PIN 2
-// Set to false if your LED is active-high (HIGH = ON). On many ESP32 boards, the on-board LED on GPIO2 is active-high.
-// Change this to match your hardware setup.
+
 static const bool LED_ACTIVE_LOW = false;
 
 RTC_DS1307 rtc;
